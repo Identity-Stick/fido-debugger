@@ -1,0 +1,43 @@
+<head>
+  <meta charset="utf-8">
+  <title>WebAuthn Demo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="{{ url_for('static', filename='webauthn.js') }}"></script>
+  <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+  <title>FIDO debug</title>
+</head>
+
+<body>
+	<h1>FIDO Debuger</h1>
+	<p>UserId and challenge will be created automatically. You can put your JSON here:</p>
+	<textarea id="json_input" width="100%" height="50%">
+{"rp": {
+  "name": "Identity Crisis",
+  "id": "localhost"
+},"user": {
+  "name": "alice@example.com",
+  "displayName": "Alice Liddell"
+},"pubKeyCredParams": [
+  { "type": "public-key", "alg": -7  },
+  { "type": "public-key", "alg": -257 }
+]}
+	</textarea><br>
+	<button onclick="create()">Send Create</button>
+	
+
+	<script>
+
+	$(document).ready(function () {
+	    // check whether current browser supports WebAuthn
+	    if (!window.PublicKeyCredential) {
+	        alert("Error: this browser does not support WebAuthn");
+	        return;
+	    }
+
+	});
+
+  </script>
+  <div id="response"></div>
+</body>
+
+</html>
