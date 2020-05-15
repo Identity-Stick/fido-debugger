@@ -2,6 +2,7 @@
   <meta charset="utf-8">
   <title>WebAuthn Demo</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='/lib/cbor.js') }}"></script>
   <script language="javascript" type="text/javascript" src="{{ url_for('static', filename='webauthn.js') }}"></script>
   <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
   <title>FIDO debug</title>
@@ -9,18 +10,19 @@
 
 <body>
 	<h1>FIDO Debuger</h1>
+	<h2>Message</h2>
 	<p>UserId and challenge will be created automatically. You can put your JSON here:</p>
 	<textarea id="json_input" width="100%" height="50%">
 {"rp": {
   "name": "Identity Crisis",
   "id": "localhost"
 },"user": {
-  "name": "alice@example.com",
-  "displayName": "Alice Liddell"
+  "name": "luke@example.com",
+  "displayName": "Luke Solo"
 },"pubKeyCredParams": [
   { "type": "public-key", "alg": -7  },
   { "type": "public-key", "alg": -257 }
-]}
+],"extensions":{"hmac-secre":true}}
 	</textarea><br>
 	<button onclick="create()">Send Create</button>
 	
@@ -37,7 +39,11 @@
 	});
 
   </script>
-  <div id="response"></div>
+  <h2>Response</h2>
+  <h3>Client Data</h3>
+  <p id="responseClientData">The response of the token will be shown here.</p>
+  <h3>Auth Data</h3>
+  <p id="responseAuthData">The response of the token will be shown here.</p>
 </body>
 
 </html>

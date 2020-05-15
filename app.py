@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flask import render_template
-
+import webauthn
 
 
 app = Flask(__name__)
@@ -10,6 +10,12 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 	return render_template('index.html')
+
+@app.route('/verify_credentials', methods=['POST'])
+def verify():
+	registration_response = request.form
+	print(registration_response)
+
 
 
 

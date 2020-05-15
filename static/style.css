@@ -2,3 +2,7 @@ textarea{
     width: 50em;
     height: 30em;
 }
+
+#response{
+	width: 50em;
+}
