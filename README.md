@@ -1,5 +1,6 @@
 #Intro
-This is the documentation for the small Fido/Webauthn debugger tool. It was developed to get an easy way to send messages to any Fido token and inspect any received messages.
+This small application was written as a possibility to debug FIDO Tokens. It outputs a very simple webpage, which allows you to construct a JSON create or authentication message, which will then be send via Webauthn create or authenticate method. The response will be shown on the website.
+
 It can be run locally in the browser and works best in Chrome at the moment as Chrome implements Fido2. Make sure you followed the steps to set it up correctly an set the settings in Chrome to accept https self signed certificates.
 
 # Useful information
