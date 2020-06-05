@@ -1,6 +1,5 @@
 <head>
   <meta charset="utf-8">
-  <title>WebAuthn Demo</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='/lib/cbor.js') }}"></script>
   <script language="javascript" type="text/javascript" src="{{ url_for('static', filename='webauthn.js') }}"></script>
@@ -9,41 +8,45 @@
 </head>
 
 <body>
-	<h1>FIDO Debuger</h1>
-	<h2>Message</h2>
-	<p>UserId and challenge will be created automatically. You can put your JSON here:</p>
-	<textarea id="json_input" width="100%" height="50%">
-{"rp": {
-  "name": "Identity Crisis",
-  "id": "localhost"
-},"user": {
-  "name": "luke@example.com",
-  "displayName": "Luke Solo"
-},"pubKeyCredParams": [
-  { "type": "public-key", "alg": -7  },
-  { "type": "public-key", "alg": -257 }
-],"extensions":{"hmac-secre":true}}
-	</textarea><br>
-	<button onclick="create()">Send Create</button>
-	
-
+	<div  id="input">
+    <div class="content">
+  		<h1>FIDO Debuger</h1>
+  		<h2>Message</h2>
+  		<p>
+  			UserId and challenge will be created automatically. You can put your JSON here:
+  		</p>
+  		<textarea id="json_input" width="100%" height="50%"></textarea><br>
+  		<button onclick="create()">Send Create</button>
+   		<button onclick="create()">Send Get</button>
+    </div>
+  </div>
+  <div id="output">
+    <div class="content">
+  	 	<h2>Response</h2>
+    		
+  		<h3>Client Data</h3>
+    		<textarea  id="responseClientData" width="100%" height="20%"></textarea>
+    		
+  		<h3>Auth Data</h3>
+    		<textarea id="responseAuthData" width="100%" height="20%"></textarea>
+  	</div>
+  </div>
 	<script>
 
-	$(document).ready(function () {
-	    // check whether current browser supports WebAuthn
-	    if (!window.PublicKeyCredential) {
-	        alert("Error: this browser does not support WebAuthn");
-	        return;
-	    }
+		$(document).ready(function () {
+			// check whether current browser supports WebAuthn
+   	 	if (!window.PublicKeyCredential) {
+        alert("Error: this browser does not support WebAuthn");
+       	return;
+    	}
 
-	});
+      //Enter default values into text-boxes
+      $('#json_input').val('{"rp": {\n "name": "Identity Crisis",\n  "id": "localhost"\n},"user": {\n  "name": "luke@example.com",\n  "displayName": "Luke Solo"\n},"pubKeyCredParams": [\n  { "type": "public-key", "alg": -7  },\n  { "type": "public-key", "alg": -257 }\n],"extensions":{"hmac-secre":true}}')
+      $('#responseClientData').val('The response of the token will be shown here.')
+      $('#responseAuthData').val('The response of the token will be shown here.')
 
-  </script>
-  <h2>Response</h2>
-  <h3>Client Data</h3>
-  <p id="responseClientData">The response of the token will be shown here.</p>
-  <h3>Auth Data</h3>
-  <p id="responseAuthData">The response of the token will be shown here.</p>
+      });
+
+	</script>
 </body>
-
 </html>

@@ -2,8 +2,6 @@
 
 from flask import Flask
 from flask import render_template
-import webauthn
-
 
 app = Flask(__name__)
 
@@ -15,8 +13,6 @@ def index():
 def verify():
 	registration_response = request.form
 	print(registration_response)
-
-
 
 
 if __name__ == '__main__':

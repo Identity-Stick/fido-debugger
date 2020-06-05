@@ -6,7 +6,7 @@ prompt = no
 C = DE
 ST = Berlin
 L = Berlin
-O = Identity Crisis
+O = Debugger 
 OU = Devs
 CN = 0.0.0.0
 [v3_req]
