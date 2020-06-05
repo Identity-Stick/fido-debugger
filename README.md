@@ -50,4 +50,5 @@ This runs the server at localhost:5000. Make sure, that your server accepts http
 # Using the Debugger
 The Debugger gives you a textfield, in which you can enter JSON Text, which will then be translated to CBOR and send via the Webauthn using credentials.create() or credentials.get() respectiveley. The response of the FIDO Authenticator will be shown in the console as a Javascript object and parts of it will be shown on the page. 
 
-Make sure, that your JSON is correct as no corrections or checking of the input is done. NOTE: The challenge will be set automatically and added to your JSON input.
+Make sure, that your JSON is correct as no corrections or checking of the input is done.
+**NOTE:** The challenge will be set automatically and added to your JSON input.
