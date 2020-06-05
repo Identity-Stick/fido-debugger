@@ -1,7 +1,5 @@
 function create(){
-
-  var jsonInput = document.getElementById('json_input').value;
-  
+  var jsonInput = $('#json_input').value;
   var publicKey = createPublicKey(jsonInput);
 
   navigator.credentials.create({ 'publicKey': publicKey })
@@ -16,7 +14,7 @@ function create(){
         const decodedClientData = utf8Decoder.decode(response.clientDataJSON)
         
         //Show client data on page and log as an object
-        $('#responseClientData').text(decodedClientData);
+        $('#responseClientData').val(decodedClientData);
         const clientDataObj = JSON.parse(decodedClientData);
         console.log(clientDataObj)
 
@@ -26,15 +24,46 @@ function create(){
 
         //Get auth data and show it on page
         const authData = parseAuthData(decodedAttestationObject);
-        $('#responseAuthData').text(authData);
+        $('#responseAuthData').val(authData);
 
     })
     .catch((error) => {
         console.log('FAIL', error)
     })
+}
 
+function get(){
+  var jsonInput = document.getElementById('json_input').value;
+  var publicKey = createPublicKey(jsonInput);
 
+  navigator.credentials.get({ 'publicKey': publicKey })
+    .then((newCredentialInfo) => {
+        console.log('SUCCESS', newCredentialInfo)
+        
+        var response = newCredentialInfo.response;
+        var clientExtResults = newCredentialInfo.getClientExtensionResults();
 
+        //Decode client data 
+        const utf8Decoder = new TextDecoder('utf-8');
+        const decodedClientData = utf8Decoder.decode(response.clientDataJSON)
+        
+        //Show client data on page and log as an object
+        $('#responseClientData').val(decodedClientData);
+        const clientDataObj = JSON.parse(decodedClientData);
+        console.log(clientDataObj)
+
+        const decodedAttestationObject = CBOR.decode(response.attestationObject);
+
+        console.log(decodedAttestationObject);
+
+        //Get auth data and show it on page
+        const authData = parseAuthData(decodedAttestationObject);
+        $('#responseAuthData').val(authData);
+
+    })
+    .catch((error) => {
+        console.log('FAIL', error)
+    })
 }
 
 
@@ -56,6 +85,7 @@ function createPublicKey(input){
 
   //TODO: Check, if everything is available
   console.log (publicKey)
+
   //Set the challenge, should not be done by user
   var challenge = create_challenge();
   publicKey.challenge = challenge
@@ -94,36 +124,4 @@ function parseAuthData(decodedAttestation){
   const extensionData = authData.slice()
 
   return publicKeyObject;
-
-}
-
-
-/**
- * Posts the new credential data to the server for validation and storage.
- * @param {Object} credentialDataForServer 
- */
-const postNewAssertionToServer = async (credentialDataForServer) => {
-    const formData = new FormData();
-    Object.entries(credentialDataForServer).forEach(([key, value]) => {
-        formData.set(key, value);
-    });
-    
-    return await fetch_json(
-        "/verify_credentials", {
-        method: "POST",
-        body: formData
-    });
-}
-
-function registerUser(){
-
-  username=$('email').val()
-  if(username===""){
-    alert("please enter a username");
-    return;
-  }
-
-  $.get(
-
-    )
 }
