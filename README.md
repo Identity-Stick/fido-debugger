@@ -14,27 +14,27 @@ If you are interested to learn more about Fido2 & Webauthn or get a better under
 
 # Setting it up
 Clone this repository.
-‘‘‘
+```
 git clone
-‘‘‘
+```
 
 ## Installing prerequisites
 Use pip to install the listed prerequisites for the python server:
-‘‘‘
+```
 pip install -r requirements.txt
-'''
+```
 
 Besides that you will need openssl to create your own certificate. If you are on a Mac, you can use brew, to do install it.
-‘‘‘
+```
 brew install openssl
-‘‘‘
+```
 
 ## Creating the certificate
 The Webauthn API only works via a secured connection. Therefore you will also need to run the debugger over https. For that you will need to create your own certificate. You can use openssl with the configuration in req.cnf to do this like so:
-‘‘‘
+```
 openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365 -config req.cnf 
 
-‘‘‘
+```
 
 Make sure to store cert.pem and key.pem in the root of your project as the Flask server will need access to this.
 
@@ -42,9 +42,9 @@ As Webauthn needs secure connections you need to make sure, that your browser ac
 
 ## Running the server
 Just start the Flask server.
-‘‘‘
+```
 python app.py 
-‘‘‘
+```
 This runs the server at localhost:5000. Make sure, that your server accepts https connections to localhost and your certificates.
 
 # Using the Debugger
